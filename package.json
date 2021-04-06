@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.876.0",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.25.0",
+    "convert-units": "^2.3.4",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.11.19",
+    "multer": "^1.4.2",
+    "recipe-ingredient-parser-v2": "^1.1.1"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest ./tests"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "v14.15.4"
+  },
+  "name": "recipe_calendar_planner",
+  "version": "1.0.0",
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "mongodb-memory-server": "^6.9.6"
+  }
+}

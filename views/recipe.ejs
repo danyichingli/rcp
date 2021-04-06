@@ -1,0 +1,35 @@
+<%- include("partials/header", {activePage: "recipe_list"}); -%>
+<div class="recipe-container">
+  <div class="recipe-header">
+    <h1><%= recipe.title %></h1>
+    <%- include("partials/edit_recipe", {recipe: recipe}); -%>
+    <br>
+    <img class="recipe-img" src="<%= recipe.image %>">
+  </div>
+  <div class="recipe-description">
+    <h3>Description</h3>
+    <p><%= recipe.description %></p>
+  </div>
+  <div class="recipe-ingredients">
+    <h3>Ingredients</h3>
+    <p><%= recipe.ingredients %></p>
+  </div>
+  <div class="recipe-instructions">
+    <h3>Instructions</h3>
+    <p><%= recipe.instructions %></p>
+  </div>
+  <div class="recipe-url">
+    <h3>URL</h3>
+    <a href="<%= recipe.url %>"><%= recipe.url %></a>
+  </div>
+  <div class="recipe-delete">
+    <form action="/delete-recipe" method="post">
+      <input type="hidden" name="recipeId" value="<%= recipe._id %>">
+      <input type="hidden" name="imageId" value="<%= recipe.imageId %>">
+      <button type="submit" class="btn btn-danger" name="recipeDeleteButton">
+        Delete Recipe
+      </button>
+    </form>
+  </div>
+</div>
+<%- include("partials/footer"); -%>

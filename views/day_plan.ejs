@@ -1,0 +1,55 @@
+<%- include("partials/header", {activePage: "day_plan"}); -%>
+    <% ingredientsList = []; %>
+    <div class="d-flex">
+      <%
+      var prevDay = new Date(todayDate);
+      prevDay.setDate(prevDay.getDate() - 1);
+      var nextDay = new Date(todayDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      const prevDayString = String(prevDay.getFullYear() + String(prevDay.getMonth() + 1).padStart(2, '0') + String(prevDay.getDate()).padStart(2, '0'));
+      const nextDayString = String(nextDay.getFullYear() + String(nextDay.getMonth() + 1).padStart(2, '0') + String(nextDay.getDate()).padStart(2, '0'));
+      %>
+      <a href="/day_plan/<%= prevDayString %>" class="btn btn-primary prev-day-button me-auto" type="button" name="prevDay">Prev Day</a>
+      <a href="/day_plan/<%= nextDayString %>" class="btn btn-primary next-day-button ms-auto" type="button" name="nextDay">Next Day</a>
+    </div>
+    <div class="container">
+      <div class="card day-card">
+        <div class="card-body day-card-header">
+          <h1 class="card-title weekday-card-title"><%= tools.get_day_of_week(todayDate); %></h1>
+          <h5><%= todayDate.toDateString().split(' ').splice(1,3).join(' '); %></h5>
+        </div>
+        <div class="card-body">
+          <!-- Add Recipe -->
+          <%- include("partials/add_recipe", {date: todayDate, recipes: recipeItems, action: '/add_day_plan'}); -%>
+          <!-- Add Recipe End -->
+        </div>
+        <ul class="list-group list-group-flush">
+          <% todayRecipes.forEach(function(recipe){ %>
+            <li class="list-group-item">
+              <div class="row">
+                <%- include("partials/expand_meal", {date: todayDate, recipe: recipe, redirectPath: "/", maxTitleLen: 40}); -%>
+              </div>
+            </li>
+            <% ingredientsList.push(recipe.ingredients); %>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <%- include("partials/shopping_list", {tools: tools, ingredientsList: ingredientsList}) -%>
+    <button type="button" class="btn btn-primary go-to-date-button" data-bs-toggle="modal" data-bs-target="#goToDateModal">
+      <i class="fas fa-calendar-day"></i>
+    </button>
+    <div class="modal fade" id="goToDateModal" tabindex="-1" aria-labelledby="goToDateModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Get day:</h5>
+            <form action="/go_to_date" method="post">
+              <input type="date" name="goToDate" value="">
+              <button class="btn btn-primary"type="submit" name="button">Go to day</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<%- include("partials/footer"); -%>

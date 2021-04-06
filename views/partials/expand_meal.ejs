@@ -1,0 +1,27 @@
+<div>
+  <div class="btn-group dropend">
+    <a href="/recipe_list/<%= recipe._id %>" class="btn btn-secondary dropend dropend-recipe" role="button">
+      <span><%= recipe.title %></span>
+    </a>
+    <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split dropend-right-button" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropright</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li style="width: 300px">
+        <div class="card-body">
+          <h4 class="card-title"><%= recipe.title %></h4>
+          <p class="card-text"><%= recipe.description %></p>
+        </div>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <form class="row" action="/delete-meal" method="post">
+        <input type="hidden" name="deleteRecipeId" value="<%= recipe._id %>">
+        <input type="hidden" name="deleteRecipeDate" value="<%= date %>">
+        <input type="hidden" name="deleteRecipeRedirect" value="<%= redirectPath %>">
+        <li>
+          <button type="submit" class="btn btn-link delete-meal-button" name="button">Delete Meal</button>
+        </li>
+      </form>
+    </ul>
+  </div>
+</div>

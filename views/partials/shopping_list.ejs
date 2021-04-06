@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-primary shopping-list-button" data-bs-toggle="modal" data-bs-target="#shoppingListModal">
+  <i class="fas fa-list"></i>
+</button>
+<div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Shopping List</h5>
+      </div>
+      <div class="modal-body">
+        <% ingredientsList = ingredientsList.join('\n').split('\n'); %>
+        <% tools.generate_shopping_list(ingredientsList).forEach(function(ingredientItem){ %>
+          <% if (ingredientItem.ingredient.length > 0){ %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+              <%
+              var ingredientString = '';
+              if (ingredientItem.quantity && ingredientItem.quantity != 0) {
+                ingredientString += ingredientItem.quantity + ' ';
+              }
+              if (ingredientItem.unit) {
+                if (ingredientItem.maxQty && ingredientItem.maxQty != 1){
+                  ingredientString += ingredientItem.unit + 's ';
+                } else {
+                ingredientString += ingredientItem.unit + ' ';
+                }
+              }
+              if (ingredientItem.ingredient && ingredientItem.ingredient.length > 0) {
+                ingredientString += ingredientItem.ingredient;
+              }
+              %>
+              <label class="form-check-label" for="flexCheckDefault"><%= ingredientString %></label>
+            </div>
+          <% } %>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>

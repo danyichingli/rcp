@@ -1,0 +1,56 @@
+<%- include("partials/header", {activePage: "week_plan"}); -%>
+  <% ingredientsList = []; %>
+  <div class="d-flex">
+    <%
+    var prevWeek = new Date(thisWeek[0]);
+    prevWeek.setDate(prevWeek.getDate() - 1);
+    var nextWeek = new Date(thisWeek[6]);
+    nextWeek.setDate(nextWeek.getDate() + 1);
+    const prevWeekString = String(prevWeek.getFullYear() + String(prevWeek.getMonth() + 1).padStart(2, '0') + String(prevWeek.getDate()).padStart(2, '0'));
+    const nextWeekString = String(nextWeek.getFullYear() + String(nextWeek.getMonth() + 1).padStart(2, '0') + String(nextWeek.getDate()).padStart(2, '0'));
+    %>
+    <a href="/week_plan/<%= prevWeekString %>" class="btn btn-primary prev-week-button me-auto" type="button" name="prevWeek">Prev Week</a>
+    <a href="/week_plan/<%= nextWeekString %>" class="btn btn-primary next-week-button ms-auto" type="button" name="nextWeek">Next Week</a>
+  </div>
+  <div class="weekday-card-deck">
+    <% for(var i = 0; i < 7; i++){ %>
+        <div class="card weekday-card h-100">
+          <div class="card-body weekday-card-header">
+            <h1 class="card-title weekday-card-title"><%= thisWeek[i].toDateString().split(' ').splice(0,1); %></h1>
+            <h5><%= thisWeek[i].toDateString().split(' ').splice(1,3).join(' '); %></h5>
+          </div>
+          <div class="card-body">
+            <!-- Add Recipe -->
+            <%- include("partials/add_recipe", {date: thisWeek[i], recipes: recipeItems, action: '/add_week_plan'}); -%>
+            <!-- Add Recipe End -->
+          </div>
+          <ul class="list-group list-group-flush">
+            <% thisWeekRecipes[i].forEach(function(recipe){ %>
+              <li class="list-group-item">
+                <%- include("partials/expand_meal", {date: thisWeek[i], recipe: recipe, redirectPath: redirectPath, maxTitleLen: 7}); -%>
+              </li>
+              <% ingredientsList.push(recipe.ingredients); %>
+            <% }) %>
+          </ul>
+        </div>
+    <% } %>
+
+  </div>
+  <%- include("partials/shopping_list", {tools: tools, ingredientsList: ingredientsList}) -%>
+  <button type="button" class="btn btn-primary go-to-week-button" data-bs-toggle="modal" data-bs-target="#goToWeekModal">
+    <i class="fas fa-calendar-week"></i>
+  </button>
+  <div class="modal fade" id="goToWeekModal" tabindex="-1" aria-labelledby="goToWeekModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Get week of:</h5>
+          <form action="/go_to_week" method="post">
+            <input type="date" name="goToWeekDate" value="">
+            <button class="btn btn-primary" type="submit" name="button">Go to week</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<%- include("partials/footer"); -%>

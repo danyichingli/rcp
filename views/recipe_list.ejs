@@ -1,0 +1,21 @@
+<%- include("partials/header", {activePage: "recipe_list"}); -%>
+
+      <% if (recipeItems.length > 0){ %>
+        <div class="recipe-card-deck">
+          <% recipeItems.forEach(function(recipe){ %>
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card recipe-card">
+                <img src="<%= recipe.image %>" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= recipe.title %></h5>
+                  <a href="/recipe_list/<%=recipe._id%>" class="btn btn-primary">Details</a>
+                </div>
+              </div>
+            </div>
+        <% }); %>
+        </div>
+      <% } else { %>
+        <p class="recipe-list-empty-message">No recipes!</p>
+      <% } %>
+      <%- include("partials/add_recipe_list"); -%>
+<%- include("partials/footer"); -%>

@@ -1,0 +1,185 @@
+body {
+  font-family: 'Rubik', sans-serif;
+  position: relative;
+  min-height: 100vh;
+}
+main {
+  padding-bottom: 4.05rem;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4.05rem;
+}
+
+/* Navbar */
+.navbar {
+  padding: 10px 10px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-item {
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+/* Ingredients */
+.num-ingredients, .ingredient-qty {
+  width: 4rem;
+}
+
+.ingredient-unit {
+  float: left;
+  width: 5rem;
+}
+
+/* Add Recipe */
+.recipe-label {
+  margin: 10px 0;
+}
+
+.add-recipe-button {
+  position: fixed;
+  border-radius: 50%;
+  font-size: 30px;
+  height: 70px;
+  width: 70px;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+/* Prev Day/Week Button, Next Day/Week Button */
+.prev-day-button, .next-day-button, .prev-week-button, .next-week-button {
+  margin: 15px 15px 0;
+}
+
+/* Day Plan, Week Plan, Recipe List */
+.day-card-header, .weekday-card-header {
+  background-color: #E2E2E2;
+}
+
+.weekday-card-deck, .recipe-card-deck {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.day-card {
+  width: 30rem;
+  margin: 20px auto;
+}
+
+.weekday-card {
+  width: 10rem;
+  margin: 20px auto 0
+}
+
+.recipe-card {
+  margin: 30px auto;
+  width: 18rem;
+}
+
+.recipe-list-empty-message {
+  padding: 150px 0;
+  color: #B8B8B8;
+  font-size: 50px;
+  text-align: center;
+}
+
+.recipe-list-button {
+  position: fixed;
+  border-radius: 50%;
+  bottom: 100px;
+  right: 50px;
+  height: 50px;
+  width: 50px;
+  z-index: 2;
+}
+
+.dropend {
+  width: 100%;
+}
+
+.dropend-recipe {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-meal-button {
+  color: red;
+  text-decoration: none;
+}
+
+.delete-meal-button:hover {
+  color: #ff4c4c;
+}
+/* Shopping List, Go To Week */
+.week-shopping-list {
+  white-space: pre-line;
+}
+
+input[type=checkbox]:checked + .form-check-label{
+  text-decoration: line-through;
+}
+
+.shopping-list-button, .go-to-date-button, .go-to-week-button {
+  position: fixed;
+  border-radius: 50%;
+  right: 40px;
+  height: 50px;
+  width: 50px;
+  z-index: 2;
+}
+
+.shopping-list-button {
+  bottom: 80px;
+}
+
+.go-to-date-button, .go-to-week-button {
+  bottom: 140px;
+}
+
+/* Recipe */
+.recipe-container {
+  margin: 30px auto;
+  width: 90%
+}
+
+.recipe-img {
+  height: 75%;
+  width: 75%
+}
+
+.recipe-ingredients, .recipe-instructions{
+  white-space: pre-line;
+}
+
+/* Footer */
+
+.footer-container {
+  background-color: #212529;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.footer-text, .footer-url {
+  color: white;
+  text-align: center;
+  font-size: 16px;
+}
+
+.footer-url:hover {
+  color: grey;
+}
+
+/* Misc */
+.red-star {
+  color: red;
+}

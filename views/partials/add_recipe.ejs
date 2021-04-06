@@ -1,0 +1,69 @@
+<!-- Button disabled if day passed -->
+<% if (date < todayDate){ %>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal<%= date.getDay() %>" disabled>
+<% } else { %>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipeModal<%= date.getDay() %>">
+<% } %>
+    Add Recipe
+  </button>
+
+<!-- Button above refers to modal form below -->
+<div class="modal fade" id="addRecipeModal<%= date.getDay() %>" tabindex="-1" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRecipeModalLabel">Add Recipe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form<%= date.getDay() %>" action="<%= action %>" method="post" enctype="multipart/form-data" >
+          <div class="form-group">
+            <!-- Hidden Date Input -->
+            <input type="hidden" name="recipeDate" value="<%= date %>">
+            <!-- Hidden Redirect Path Input -->
+            <input type="hidden" name="redirectPath" value="<%= redirectPath %>">
+            <!-- Existing Recipe Input Field -->
+            <div class="dropdown">
+              <label for="recipeChoice">Choose from recipe list: </label>
+              <select id="recipeChoice" name="recipeChoice">
+                <!-- Default select option -->
+                <option value="">
+                  Select an Option
+                </option>
+                <% recipes.forEach(function(recipe){ %>
+                  <!-- Recipe select option -->
+                  <option value="<%= recipe._id %>">
+                    <%= recipe.title %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+            <!-- Title Input Field -->
+            <label class="recipe-label">Title</label>
+            <input class="form-control" type="text" name="recipeTitle" autocomplete="off">
+            <!-- Description Input Field -->
+            <label class="recipe-label">Description</label>
+            <textarea class="form-control" name="recipeDescription" rows="3" cols="30" maxlength="200"></textarea>
+            <!-- Image Input Field -->
+            <label class="recipe-label">Image</label><br>
+            <input class="form-control" type="file" name="recipeImage" accept="image/png, image/jpeg, image/jpg"><br>
+            <!-- Ingredients Input Field -->
+            <label class="recipe-label">Ingredients</label><br>
+            <textarea class="form-control" name="recipeIngredients" rows="5" cols="30"></textarea>
+            <!-- Instructions Input Field -->
+            <label class="recipe-label">Instructions</label>
+            <textarea class="form-control" name="recipeInstructions" rows="5" cols="30"></textarea>
+            <!-- URL Input Field -->
+            <label class="recipe-label">URL</label>
+            <input class="form-control" type="text" name="recipeURL" autocomplete="off">
+          </div>
+          <div class="modal-footer">
+            <!-- Cancel or Submit -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" form="form<%= date.getDay() %>">Save Recipe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
