@@ -7,16 +7,18 @@
       var nextDay = new Date(todayDate);
       nextDay.setDate(nextDay.getDate() + 1);
       const prevDayString = String(prevDay.getFullYear() + String(prevDay.getMonth() + 1).padStart(2, '0') + String(prevDay.getDate()).padStart(2, '0'));
+      const prevDayLabel = prevDay.toDateString().split(' ').splice(1,2).join(' ') + ', ' + prevDay.toDateString().split(' ').splice(3);
       const nextDayString = String(nextDay.getFullYear() + String(nextDay.getMonth() + 1).padStart(2, '0') + String(nextDay.getDate()).padStart(2, '0'));
+      const nextDayLabel = nextDay.toDateString().split(' ').splice(1,2).join(' ') + ', ' + nextDay.toDateString().split(' ').splice(3);
       %>
-      <a href="/day_plan/<%= prevDayString %>" class="btn btn-primary prev-day-button me-auto" type="button" name="prevDay">Prev Day</a>
-      <a href="/day_plan/<%= nextDayString %>" class="btn btn-primary next-day-button ms-auto" type="button" name="nextDay">Next Day</a>
+      <a href="/day_plan/<%= prevDayString %>" class="btn btn-primary prev-day-button me-auto" type="button" name="prevDay"><i class="fas fa-angle-left"></i> <span><%= prevDayLabel %></span></a>
+      <a href="/day_plan/<%= nextDayString %>" class="btn btn-primary next-day-button ms-auto" type="button" name="nextDay"><span><%= nextDayLabel %></span> <i class="fas fa-angle-right"></i></a>
     </div>
     <div class="container">
       <div class="card day-card">
         <div class="card-body day-card-header">
           <h1 class="card-title weekday-card-title"><%= tools.get_day_of_week(todayDate); %></h1>
-          <h5><%= todayDate.toDateString().split(' ').splice(1,3).join(' '); %></h5>
+          <h5><%= todayDate.toDateString().split(' ').splice(1,2).join(' ') + ', ' + todayDate.toDateString().split(' ').splice(3); %></h5>
         </div>
         <div class="card-body">
           <!-- Add Recipe -->

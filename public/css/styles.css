@@ -1,7 +1,9 @@
 body {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   position: relative;
   min-height: 100vh;
+  background: #fbfbfb;
+
 }
 main {
   padding-bottom: 4.05rem;
@@ -13,9 +15,20 @@ footer {
   height: 4.05rem;
 }
 
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.nav-icon {
+  margin-right: 7px;
+}
+
 /* Navbar */
 .navbar {
   padding: 10px 10px;
+  background: rgb(0,232,255);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(13,110,253,1) 100%);
 }
 
 .navbar-brand {
@@ -23,7 +36,6 @@ footer {
 }
 
 .nav-item {
-  font-size: 1rem;
   padding: 0 10px;
 }
 
@@ -54,8 +66,56 @@ footer {
 }
 
 /* Prev Day/Week Button, Next Day/Week Button */
-.prev-day-button, .next-day-button, .prev-week-button, .next-week-button {
-  margin: 15px 15px 0;
+.prev-day-button, .prev-week-button, .next-day-button, .next-week-button {
+  position: fixed;
+  z-index: 2;
+  top: 70px;
+  padding-right: 5px;
+}
+
+.prev-day-button, .prev-week-button {
+  left: 5px;
+}
+
+.next-day-button, .next-week-button {
+  right: 5px;
+}
+
+.prev-day-button span, .prev-week-button span, .next-day-button span, .next-week-button span {
+  max-width: 0;
+  transition: max-width 0.2s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.prev-day-button:hover span, .prev-week-button:hover span, .next-day-button:hover span, .next-week-button:hover span {
+  max-width: 12rem;
+  transition: 0.2s;
+}
+
+.prev-day-button:hover span, .prev-week-button:hover span, .fa-angle-left {
+  padding-right: 5px;
+}
+
+.next-day-button:hover span, .next-week-button:hover span, .fa-angle-right {
+  padding-left: 5px;
+}
+
+.next-day-button, .next-week-button {
+  padding-right: 12px;
+}
+
+.prev-day-button, .prev-week-button{
+  padding-right: 5px
+}
+
+.next-day-button {
+  padding-left: 5px;
+}
+.next-week-button {
+  padding-left: 8px;
 }
 
 /* Day Plan, Week Plan, Recipe List */
@@ -120,6 +180,7 @@ footer {
 .delete-meal-button:hover {
   color: #ff4c4c;
 }
+
 /* Shopping List, Go To Week */
 .week-shopping-list {
   white-space: pre-line;
@@ -152,19 +213,46 @@ input[type=checkbox]:checked + .form-check-label{
   width: 90%
 }
 
+.recipe-container p {
+  margin-top: 30px;
+}
+
 .recipe-img {
   height: 75%;
   width: 75%
 }
 
-.recipe-ingredients, .recipe-instructions{
-  white-space: pre-line;
+.recipe-ingredients li {
+  font-size: 20px;
+  list-style-type: none;
+  margin-right: 150px;
+}
+
+
+@media(max-width: 768px) {
+  .recipe-instructions li, .recipe-ingredients li {
+    font-size: 25px;
+    margin: 0 0 20px 0;
+  }
+  .recipe-container p {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 769px) {
+  .recipe-instructions li, .recipe-ingredients li {
+    font-size: 20px;
+  }
+  .recipe-container p {
+    font-size: 25px;
+  }
 }
 
 /* Footer */
 
 .footer-container {
-  background-color: #212529;
+  background: rgb(0,232,255);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(13,110,253,1) 100%);
   padding-top: 20px;
   padding-bottom: 5px;
 }

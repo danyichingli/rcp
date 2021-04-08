@@ -2,15 +2,23 @@
   <% ingredientsList = []; %>
   <div class="d-flex">
     <%
-    var prevWeek = new Date(thisWeek[0]);
-    prevWeek.setDate(prevWeek.getDate() - 1);
-    var nextWeek = new Date(thisWeek[6]);
-    nextWeek.setDate(nextWeek.getDate() + 1);
-    const prevWeekString = String(prevWeek.getFullYear() + String(prevWeek.getMonth() + 1).padStart(2, '0') + String(prevWeek.getDate()).padStart(2, '0'));
-    const nextWeekString = String(nextWeek.getFullYear() + String(nextWeek.getMonth() + 1).padStart(2, '0') + String(nextWeek.getDate()).padStart(2, '0'));
+    var prevWeekStart = new Date(thisWeek[0]);
+    var prevWeekEnd = new Date(thisWeek[0]);
+    prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+    prevWeekEnd.setDate(prevWeekEnd.getDate() - 1);
+    var nextWeekStart = new Date(thisWeek[6]);
+    var nextWeekEnd = new Date(thisWeek[6]);
+    nextWeekStart.setDate(nextWeekStart.getDate() + 1);
+    nextWeekEnd.setDate(nextWeekEnd.getDate() + 7);
+    const prevWeekString = String(prevWeekEnd.getFullYear() + String(prevWeekEnd.getMonth() + 1).padStart(2, '0') + String(prevWeekEnd.getDate()).padStart(2, '0'));
+    const prevWeekStartLabel = String(String(prevWeekStart.getMonth() + 1).padStart(2, '0') + '/' + String(prevWeekStart.getDate()).padStart(2, '0') + '/' + prevWeekStart.getFullYear());
+    const prevWeekEndLabel = String(String(prevWeekEnd.getMonth() + 1).padStart(2, '0') + '/' + String(prevWeekEnd.getDate()).padStart(2, '0') + '/' + prevWeekEnd.getFullYear());
+    const nextWeekString = String(nextWeekStart.getFullYear() + String(nextWeekStart.getMonth() + 1).padStart(2, '0') + String(nextWeekStart.getDate()).padStart(2, '0'));
+    const nextWeekStartLabel = String(String(nextWeekStart.getMonth() + 1).padStart(2, '0') + '/' + String(nextWeekStart.getDate()).padStart(2, '0') + '/' + nextWeekStart.getFullYear());
+    const nextWeekEndLabel = String(String(nextWeekEnd.getMonth() + 1).padStart(2, '0') + '/' + String(nextWeekEnd.getDate()).padStart(2, '0') + '/' + nextWeekEnd.getFullYear());
     %>
-    <a href="/week_plan/<%= prevWeekString %>" class="btn btn-primary prev-week-button me-auto" type="button" name="prevWeek">Prev Week</a>
-    <a href="/week_plan/<%= nextWeekString %>" class="btn btn-primary next-week-button ms-auto" type="button" name="nextWeek">Next Week</a>
+    <a href="/week_plan/<%= prevWeekString %>" class="btn btn-primary prev-week-button me-auto" type="button" name="prevWeek"><i class="fas fa-angle-left"></i> <span><%= prevWeekStartLabel + ' - ' + prevWeekEndLabel %></span></a>
+    <a href="/week_plan/<%= nextWeekString %>" class="btn btn-primary next-week-button ms-auto" type="button" name="nextWeek"><span><%= nextWeekStartLabel + ' - ' + nextWeekEndLabel %></span><i class="fas fa-angle-right"></i></a>
   </div>
   <div class="weekday-card-deck">
     <% for(var i = 0; i < 7; i++){ %>

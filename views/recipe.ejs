@@ -7,21 +7,30 @@
     <img class="recipe-img" src="<%= recipe.image %>">
   </div>
   <div class="recipe-description">
-    <h3>Description</h3>
-    <p><%= recipe.description %></p>
+    <p>Description</p>
+    <p class="recipe-body"><%= recipe.description %></p>
   </div>
   <div class="recipe-ingredients">
-    <h3>Ingredients</h3>
-    <p><%= recipe.ingredients %></p>
+    <p>Ingredients</p>
+    <ul>
+      <% recipe.ingredients.split('\n').forEach(function(item) { %>
+        <li><%= item %></li>
+      <% }) %>
+    </ul>
   </div>
   <div class="recipe-instructions">
-    <h3>Instructions</h3>
-    <p><%= recipe.instructions %></p>
+    <p>Instructions</p>
+    <ol>
+      <% recipe.instructions.split('\n').forEach(function(step) { %>
+        <li><%= step %></li>
+      <% }) %>
+    </ol>
   </div>
   <div class="recipe-url">
-    <h3>URL</h3>
-    <a href="<%= recipe.url %>"><%= recipe.url %></a>
+    <p>URL</p>
+    <a class="recipe-body" href="<%= recipe.url %>"><%= recipe.url %></a>
   </div>
+  <br>
   <div class="recipe-delete">
     <form action="/delete-recipe" method="post">
       <input type="hidden" name="recipeId" value="<%= recipe._id %>">
