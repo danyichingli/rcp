@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
 // const { MongoMemoryServer } = require('mongodb-memory-server');
 
 // const mongod = new MongoMemoryServer();
@@ -12,6 +14,7 @@ class DB {
 
 // Recipe
 const recipesSchema = {
+  accountId: String,
   title: String,
   description: String,
   image: String,
@@ -31,15 +34,36 @@ const Meal = mongoose.model('Meal', mealsSchema);
 
 // User
 const usersSchema = {
+  accountId: String,
   sid: String,
-  userTimezone: String
+  userTimezone: String,
 }
 const User = mongoose.model('User', usersSchema);
+
+// Account
+const accountsSchema = new mongoose.Schema ({
+  username: String,
+  password: String,
+});
+accountsSchema.plugin(passportLocalMongoose);
+
+const Account = new mongoose.model("Account", accountsSchema);
+
+passport.use(Account.createStrategy());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 module.exports = {
   Recipe: Recipe,
   Meal: Meal,
   User: User,
+  Account: Account,
   mongoose: mongoose,
   database: {
     connect: async () => {

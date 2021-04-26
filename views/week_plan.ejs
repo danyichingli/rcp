@@ -35,7 +35,7 @@
           <ul class="list-group list-group-flush">
             <% thisWeekRecipes[i].forEach(function(recipe){ %>
               <li class="list-group-item">
-                <%- include("partials/expand_meal", {date: thisWeek[i], recipe: recipe, redirectPath: redirectPath, maxTitleLen: 7}); -%>
+                <%- include("partials/expand_meal", {date: thisWeek[i], recipe: recipe, routePath: routePath, maxTitleLen: 7}); -%>
               </li>
               <% ingredientsList.push(recipe.ingredients); %>
             <% }) %>

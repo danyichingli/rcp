@@ -17,7 +17,7 @@
       <form class="row" action="/delete-meal" method="post">
         <input type="hidden" name="deleteRecipeId" value="<%= recipe._id %>">
         <input type="hidden" name="deleteRecipeDate" value="<%= date %>">
-        <input type="hidden" name="deleteRecipeRedirect" value="<%= redirectPath %>">
+        <input type="hidden" name="deleteRecipeRedirect" value="<%= routePath %>">
         <li>
           <button type="submit" class="btn btn-link delete-meal-button" name="button">Delete Meal</button>
         </li>

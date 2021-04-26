@@ -21,9 +21,11 @@
   <div class="recipe-instructions">
     <p>Instructions</p>
     <ol>
-      <% recipe.instructions.split('\n').forEach(function(step) { %>
-        <li><%= step %></li>
-      <% }) %>
+      <% if (recipe.instructions.length > 0){ %>
+        <% recipe.instructions.split('\n').forEach(function(step) { %>
+          <li><%= step %></li>
+        <% }) %>
+      <% } %>
     </ol>
   </div>
   <div class="recipe-url">

@@ -29,7 +29,7 @@
           <% todayRecipes.forEach(function(recipe){ %>
             <li class="list-group-item">
               <div class="row">
-                <%- include("partials/expand_meal", {date: todayDate, recipe: recipe, redirectPath: "/", maxTitleLen: 40}); -%>
+                <%- include("partials/expand_meal", {date: todayDate, recipe: recipe, routePath: routePath, maxTitleLen: 40}); -%>
               </div>
             </li>
             <% ingredientsList.push(recipe.ingredients); %>

@@ -1,0 +1,36 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4.05rem;
+}
+.submit-button {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: .75rem;
+}
+
+.footer-container {
+    background: rgb(0, 232, 255);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(13, 110, 253, 1) 100%);
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.footer-text, .footer-url {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+.footer-url:hover {
+    color: grey;
+}

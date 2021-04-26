@@ -1,5 +1,7 @@
 <%- include("partials/header", {activePage: "preferences"}); -%>
-<div class="form-control">
+
+<div class="pref">
+  <h3>Username: <%= accountUsername %></h3>
   <h3>Timezone: <%= currentTimezone %></h3>
   <form action="/preferences" method="post">
     <select name="timezone">
@@ -87,8 +89,36 @@
        <option value="Pacific/Fiji">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
        <option value="Pacific/Tongatapu">(GMT+13:00) Nuku'alofa</option>
     </select>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <br>
+    <button type="submit" class="btn btn-primary pref-submit">Save Changes</button>
   </form>
+</div>
 
+<!-- Logout -->
+<a class="btn btn-danger logout" href="/logout">Log Out</a>
+
+<br>
+
+<!-- Delete Account -->
+<button type="button" class="btn btn-danger delete-account" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete Account
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">WARNING!!!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete <%= accountUsername %>? All your recipes and plans will also be deleted.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+        <a class="btn btn-danger" href="/delete-account">Delete Account</a>
+      </div>
+    </div>
+  </div>
 </div>
 <%- include("partials/footer"); -%>

@@ -9,6 +9,7 @@ const dbTools = require('./dbTools.js');
 const Recipe = dbTools.Recipe;
 const Meal = dbTools.Meal;
 const User = dbTools.User;
+const Account = dbTools.Account;
 
 // const cloudinary_secrets = JSON.parse(fs.readFileSync('.secrets/cloudinary.json'));
 // cloudinary.config({
@@ -25,6 +26,14 @@ cloudinary.config({
 const unlinkAsync = promisify(fs.unlink);
 
 module.exports = {
+  logged_in: function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+  },
+
   get_image_url: async function get_image_url(filename, path, recipeModel){
     try{
       // Upload to Cloudinary API
@@ -72,11 +81,14 @@ module.exports = {
     return sunday;
   },
 
-  get_all_recipes: async function get_all_recipes(foundMeals){
+  get_all_recipes: async function get_all_recipes(foundMeals, accountId){
     // Only focus on the _id
     const foundRecipeIds = foundMeals.map(x => x.recipeId);
     // Find all recipes with corresponding _id
-    return await Recipe.find({ _id: {$in: foundRecipeIds} }).exec().then(result => {
+    return await Recipe.find({ 
+      accountId: accountId,
+      _id: {$in: foundRecipeIds} 
+    }).exec().then(result => {
       return result
     });
   },
@@ -94,7 +106,9 @@ module.exports = {
     tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    return await Meal.find({ date: { $gte: today.toISOString(), $lt: tomorrow.toISOString() } });
+    return await Meal.find({ 
+      date: { $gte: today.toISOString(), $lt: tomorrow.toISOString() },
+    });
   },
 
   get_user_cookie: function get_user_cookie(req) {
@@ -102,6 +116,7 @@ module.exports = {
     .then(foundUser => {
       if (!foundUser){
         newUser = new User({
+          accountId: '',
           sid: req.cookies['connect.sid'],
           userTimezone: 'Etc/Greenwich'
         });
@@ -112,12 +127,14 @@ module.exports = {
     });
   },
 
-  compose_recipe_plan: function compose_recipe_plan(req, date) {
+  compose_recipe_plan: function compose_recipe_plan(req, date, accountId) {
+    
     // Default 'not found' image
     const placeholder_img = 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg';
 
     // New Recipe Item
     recipe = new Recipe({
+      accountId: accountId,
       title: req.body.recipeTitle,
       description: req.body.recipeDescription,
       image: placeholder_img,
@@ -209,6 +226,28 @@ module.exports = {
     cloudinary.uploader.destroy(imageId, function(err){
       if (!err){
         console.log("Successfully removed image from Cloudinary API.");
+      }
+    });
+  },
+
+  delete_account: async function deleteAccount(accountId){
+    delete_recipe = this.delete_recipe;
+    delete_image = this.delete_image;
+    
+    // Delete recipes and meals associated with account
+    await Recipe.find({accountId: accountId}, function(err, recipes){
+      recipes.forEach(function(recipe){
+        this.delete_recipe(recipe._id, recipe.imageId);
+      });
+      console.log("Successfully deleted recipes");
+    });
+
+    // Delete account
+    await Account.deleteOne({_id: accountId}, function(err){
+      if (!err) {
+        console.log("Successfully deleted account.");
+      } else {
+        console.log(err);
       }
     });
   },
